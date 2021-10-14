@@ -1,49 +1,45 @@
-import logo from './logo.svg';
-import './App.css';
-import { fetchBooks } from './request-utils.js'
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route
+  } from "react-router-dom";
+  import React, { Component } from 'react';
+import LoginPage from "./LoginPage.js";
+import SearchPage from "./SearchPage.js";
 
-import React, { Component } from 'react'
+const TOKEN = 'TOKEN'
 
 export default class App extends Component {
-  state = {
-    title: '',
-    booksList: []
-  }
 
-  handleSubmit = async(e) => {
-    e.preventDefault();
+    state = {
+        token: localStorage.getItem(TOKEN) || ''
+    }
 
-    const books = await fetchBooks(this.state.title);
-    await this.setState({booksList: books});
-    console.log("title ", this.state.title);
-    console.log("bookslist ", this.state.booksList);
-  }
+    handleTokenChange = token => {
+        localStorage.setItem(TOKEN, token)
+        this.setState({ token: token })
+    }
 
-  render() {
-    const { booksList } = this.state;
-    console.log(booksList);
-    return (
-      <div>
-        <form onSubmit={this.handleSubmit}>
-          <label>
-            Title :
-            <input value={this.state.title} onChange={(e) => this.setState({title: e.target.value})}></input>
-          </label>
-          <button type="submit">Submit</button>
-        </form>
-
-        <div>
-          {
-            booksList.map(({ author, titleweb, isbn, flapcopy, priceusa }) => <div key={isbn}>
-              <h1>{author}</h1>
-              <h2>{titleweb}</h2>
-              <div dangerouslySetInnerHTML={{__html: flapcopy}}></div>
-              <div> Price: ${priceusa} </div>
-            </div>)
-          }
-        </div>
-      </div>
-    )
-  }
+    render() {
+        return (
+            <div>
+                <Router>
+                    <Switch>
+                        {/* <Route exact path="/">
+                            <Home />
+                        </Route> */}
+    
+                        <Route path="/search-page">
+                            <SearchPage />
+                        </Route>
+    
+                        <Route path="/login">
+                            <LoginPage
+                                handleTokenChange={this.handleTokenChange} />
+                        </Route>
+                    </Switch>
+                </Router>
+            </div>
+        )
+    }
 }
-
