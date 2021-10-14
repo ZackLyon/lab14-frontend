@@ -35,12 +35,12 @@ export default class LoginPage extends Component {
             <div>
                 <form
                     onSubmit={this.handleSubmitLogin}>
-                    <input 
+                    <input
                     type='email'
                     value={this.state.login_email}
                     onChange={(e) => this.setState({ login_email: e.target.value })}
                     />
-                    <input 
+                    <input
                     type='password'
                     value={this.state.login_password}
                     onChange={(e) => this.setState({ login_password: e.target.value })}
@@ -49,12 +49,12 @@ export default class LoginPage extends Component {
                 </form>
                 <form
                     onSubmit={this.handleSubmitSignUp}>
-                    <input 
+                    <input
                     type='email'
                     value={this.state.signup_email}
                     onChange={(e) => this.setState({ signup_email: e.target.value })}
                     />
-                    <input 
+                    <input
                     type='password'
                     value={this.state.signup_password}
                     onChange={(e) => this.setState({ signup_password: e.target.value })}
