@@ -37,7 +37,7 @@ export default class App extends Component {
             booksList.map(({ author, titleweb, isbn, flapcopy, priceusa }) => <div key={isbn}>
               <h1>{author}</h1>
               <h2>{titleweb}</h2>
-              <div>{flapcopy}</div>
+              <div dangerouslySetInnerHTML={{__html: flapcopy}}></div>
               <div> Price: ${priceusa} </div>
             </div>)
           }
